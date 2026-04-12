@@ -1,6 +1,5 @@
 import { db } from './firebase';
 import { collection, query, where, getDocs, updateDoc, doc, arrayUnion, increment } from 'firebase/firestore';
-import toast from 'react-hot-toast';
 import type { Coupon } from '../types';
 
 interface ValidationResult {
@@ -29,7 +28,7 @@ export const validateCoupon = async (
     
     const coupon = { id: snap.docs[0].id, ...snap.docs[0].data() } as Coupon;
     
-    if (coupon.expiresAt && coupon.expiresAt.toDate() < new Date()) {
+    if (coupon.expiresAt && 'toDate' in (coupon.expiresAt as unknown as object) && (coupon.expiresAt as unknown as { toDate: () => Date }).toDate() < new Date()) {
       return { valid: false, error: 'Coupon expired' };
     }
     

@@ -52,7 +52,7 @@ export const signUp = async (email: string, password: string, name: string): Pro
     
     await setDoc(doc(db, 'users', cred.user.uid), userData);
     toast.success('Account created successfully!');
-    return { ...cred.user, ...userData } as User;
+    return { ...userData, uid: cred.user.uid, email: cred.user.email || email } as unknown as User;
   } catch (error) {
     const message = getErrorMessage(error as { code?: string; message: string });
     toast.error(message);
@@ -95,7 +95,8 @@ export const signIn = async (email: string, password: string): Promise<User> => 
     }
     
     toast.success('Welcome back!');
-    return cred.user as User;
+    const userData = userSnap.exists() ? userSnap.data() : {};
+    return { ...cred.user, ...userData } as unknown as User;
   } catch (error) {
     const message = getErrorMessage(error as { code?: string; message: string });
     toast.error(message);
@@ -138,7 +139,8 @@ export const signInWithGoogle = async (): Promise<User> => {
       toast.success('Welcome back!');
     }
     
-    return cred.user as User;
+    const userSnapData = userSnap.exists() ? userSnap.data() : {};
+    return { ...cred.user, ...userSnapData } as unknown as User;
   } catch (error) {
     const message = getErrorMessage(error as { code?: string; message: string });
     toast.error(message);

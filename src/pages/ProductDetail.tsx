@@ -5,13 +5,12 @@ import { useProductBySlug } from '../hooks/useProducts';
 import { useCart } from '../hooks/useCart';
 import { useAuthStore } from '../store/authStore';
 import { formatCurrency } from '../utils/formatters';
-import { SkeletonCard } from '../components/shared/SkeletonCard';
 
 const ProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const { product, loading } = useProductBySlug(slug);
   const { addToCart } = useCart();
-  const { user } = useAuthStore();
+  useAuthStore();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
 

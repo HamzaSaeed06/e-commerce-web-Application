@@ -64,6 +64,7 @@ export interface CartItem {
   image: string;
   qty: number;
   stock: number;
+  variant?: string;
 }
 
 export interface Order {

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, Heart, Menu, X, ChevronDown, LogOut, Settings, Package, LayoutDashboard } from 'lucide-react';
-import { Bell, ShoppingCartSimple } from 'phosphor-react';
+import { Bell } from 'phosphor-react';
 import { useCartStore } from '../../store/cartStore';
 import { useAuthStore } from '../../store/authStore';
 import { SearchBar } from '../search/SearchBar';
@@ -38,13 +38,6 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { to: '/', label: 'Home' },
-    { to: '/products', label: 'Shop' },
-    { to: '/category/electronics', label: 'Electronics' },
-    { to: '/category/fashion', label: 'Fashion' },
-    { to: '/category/home', label: 'Home' },
-  ];
 
   return (
     <header

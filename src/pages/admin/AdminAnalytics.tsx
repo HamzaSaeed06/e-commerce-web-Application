@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { 
   TrendingUp, ShoppingCart, Users, DollarSign, Package, Eye, 
-  BarChart3, PieChart, Activity, Clock, Calendar, RefreshCw,
-  ChevronDown
+  BarChart3, PieChart, Activity, Clock, Calendar, RefreshCw
 } from 'lucide-react';
 import { 
   getAdminStats, getSalesByDay, getMostSoldProducts, getMostViewedProducts,

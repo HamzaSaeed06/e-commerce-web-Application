@@ -10,7 +10,6 @@ import {
   where,
   orderBy,
   limit,
-  startAfter,
   increment,
   serverTimestamp,
   onSnapshot,
@@ -32,7 +31,7 @@ export interface GetProductsOptions {
 }
 
 export const getProducts = async (options: GetProductsOptions = {}): Promise<{ products: Product[]; lastDoc: QueryDocumentSnapshot | null }> => {
-  const { category, sort, priceMin, priceMax, lastDoc, pageSize = 12 } = options;
+  const { category, sort, lastDoc, pageSize = 12 } = options;
   
   // Simple query without composite index requirement
   let q = query(collection(db, PRODUCTS), where('isActive', '==', true), limit(pageSize * 2));

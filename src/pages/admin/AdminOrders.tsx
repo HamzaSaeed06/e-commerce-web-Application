@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Package, Search, Eye, Truck, CheckCircle, XCircle } from 'lucide-react';
+import { Package, Search, Truck, CheckCircle, XCircle } from 'lucide-react';
 import { getAllOrders, updateOrderStatus } from '../../services/orderService';
 import { formatCurrency, formatDate } from '../../utils/formatters';
 import toast from 'react-hot-toast';

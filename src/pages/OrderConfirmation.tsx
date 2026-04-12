@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { CheckCircle, Package, ArrowRight, Download } from 'lucide-react';
+import { CheckCircle, Package, ArrowRight } from 'lucide-react';
 import { getOrderById } from '../services/orderService';
 import { formatCurrency, formatDate } from '../utils/formatters';
 import type { Order } from '../types';

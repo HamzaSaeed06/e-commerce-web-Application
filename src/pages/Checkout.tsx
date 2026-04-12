@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ChevronRight, CreditCard, Truck } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { Money, Lock } from 'phosphor-react';
 import { useCartStore } from '../store/cartStore';
 import { useAuthStore } from '../store/authStore';

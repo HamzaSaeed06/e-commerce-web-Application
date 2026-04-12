@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { 
-  ChartPieSlice,
   ShoppingBag,
   CurrencyDollar,
   Package,

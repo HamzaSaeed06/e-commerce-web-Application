@@ -47,7 +47,7 @@ export const useProducts = (options: GetProductsOptions = {}): UseProductsResult
       try {
         setLoading(true);
         setError(null);
-        const result = await getProducts({ ...options, lastDoc: null });
+        const result = await getProducts({ ...options });
         setProducts(result.products);
         setLastDoc(result.lastDoc);
         setHasMore(result.products.length === (options.pageSize || 12));
@@ -70,7 +70,7 @@ export const useProducts = (options: GetProductsOptions = {}): UseProductsResult
       try {
         setLoading(true);
         setError(null);
-        const result = await getProducts({ ...options, lastDoc: null });
+        const result = await getProducts({ ...options });
         setProducts(result.products);
         setLastDoc(result.lastDoc);
         setHasMore(result.products.length === (options.pageSize || 12));

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, Mail, Calendar, Shield, User as UserIcon, Trash2, MoreVertical } from 'lucide-react';
+import { Search, Trash2 } from 'lucide-react';
 import { getAllUsers, updateUserRole, deleteUser } from '../../services/userService';
 import { formatDate } from '../../utils/formatters';
 import toast from 'react-hot-toast';
@@ -9,7 +9,6 @@ const AdminUsers = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedUser, setSelectedUser] = useState<string | null>(null);
 
   useEffect(() => {
     loadUsers();

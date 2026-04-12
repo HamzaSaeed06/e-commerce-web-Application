@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus, Upload, X, ArrowLeft } from 'lucide-react';
+import { Upload, X, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { createProduct } from '../../services/productService';
 import toast from 'react-hot-toast';

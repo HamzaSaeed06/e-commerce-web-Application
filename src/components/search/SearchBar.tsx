@@ -9,7 +9,7 @@ export const SearchBar = () => {
   const [inputValue, setInputValue] = useState('');
   const { recentSearches, setQuery, addRecentSearch } = useSearchStore();
   const [trending, setTrending] = useState<string[]>([]);
-  const debouncedValue = useDebounce(inputValue, 300);
+  useDebounce(inputValue, 300);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 

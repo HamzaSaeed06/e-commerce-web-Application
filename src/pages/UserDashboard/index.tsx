@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, Routes, Route, useLocation } from 'react-router-dom';
-import { Package, User, MapPin, Heart, Award, ShoppingBag, Camera, Edit2 } from 'lucide-react';
+import { Package, User, MapPin, Heart, Award, Edit2 } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import { getUserOrders } from '../../services/orderService';
 import { getUserProfile } from '../../services/authService';
@@ -90,7 +90,7 @@ const Orders = () => {
 
 // Profile Component with real data
 const Profile = () => {
-  const { user, setUser } = useAuthStore();
+  const { user } = useAuthStore();
   const [profile, setProfile] = useState<UserType | null>(null);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);

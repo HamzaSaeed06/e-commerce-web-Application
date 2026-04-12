@@ -13,7 +13,7 @@ import {
   arrayUnion,
 } from 'firebase/firestore';
 import toast from 'react-hot-toast';
-import type { Order, OrderItem } from '../types';
+import type { Order } from '../types';
 import { clearCartFirestore } from './cartService';
 import { trackPurchase } from './activityService';
 
@@ -157,8 +157,12 @@ export const getUserOrders = async (userId: string): Promise<Order[]> => {
     const orders = snap.docs.map(d => ({ id: d.id, ...d.data() } as Order));
     // Client-side sorting
     return orders.sort((a, b) => {
-      const dateA = a.createdAt?.toMillis?.() || new Date(a.createdAt).getTime();
-      const dateB = b.createdAt?.toMillis?.() || new Date(b.createdAt).getTime();
+      const dateA = (a.createdAt && typeof a.createdAt === 'object' && 'toMillis' in a.createdAt) 
+        ? (a.createdAt as unknown as { toMillis: () => number }).toMillis() 
+        : new Date(a.createdAt as unknown as string | number | Date).getTime();
+      const dateB = (b.createdAt && typeof b.createdAt === 'object' && 'toMillis' in b.createdAt) 
+        ? (b.createdAt as unknown as { toMillis: () => number }).toMillis() 
+        : new Date(b.createdAt as unknown as string | number | Date).getTime();
       return dateB - dateA;
     });
   } catch (error) {
