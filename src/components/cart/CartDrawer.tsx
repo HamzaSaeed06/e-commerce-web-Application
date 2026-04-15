@@ -44,80 +44,82 @@ export const CartDrawer = () => {
         className="fixed top-0 right-0 h-full w-full sm:w-96 bg-white shadow-xl z-50 flex flex-col"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-          <h2 className="font-display font-semibold text-[20px]">Your cart</h2>
+        <div className="flex items-center justify-between px-6 py-5 border-b border-(--neutral-200)">
+          <h2 className="text-[14px] font-bold uppercase tracking-widest text-black">Your Basket</h2>
           <button
             onClick={closeCart}
-            className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-(--neutral-100) transition-colors"
           >
-            <X size={20} className="text-slate-500" />
+            <X size={20} className="text-black" />
           </button>
         </div>
 
         {/* Cart Items */}
-        <div className="flex-1 overflow-y-auto px-5 py-3 max-h-[calc(100vh-280px)]">
+        <div className="flex-1 overflow-y-auto px-6 py-4">
           {items.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-16 text-center">
-              <ShoppingCartSimple weight="duotone" size={64} className="text-slate-200 mb-4" />
-              <p className="text-[16px] font-medium text-slate-500 mb-2">
-                Your cart is empty
+            <div className="flex flex-col items-center justify-center py-24 text-center">
+              <ShoppingCartSimple weight="regular" size={48} className="text-(--neutral-200) mb-6" />
+              <p className="text-[14px] font-bold text-black uppercase tracking-widest mb-4">
+                Your basket is empty
               </p>
               <Link
                 to="/products"
                 onClick={closeCart}
-                className="mt-4 px-6 py-2 bg-orange-500 text-white font-medium rounded-lg hover:bg-orange-600 transition-colors"
+                className="px-8 py-3 border border-black text-[12px] font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all rounded-[4px]"
               >
-                Explore products
+                Go Shopping
               </Link>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-6">
               {items.map((item) => (
                 <div
                   key={item.productId}
-                  className="flex gap-3 items-start pb-4 border-b border-slate-100 last:border-0 last:pb-0"
+                  className="flex gap-4 items-start pb-6 border-b border-(--neutral-100) last:border-0 last:pb-0"
                 >
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-16 h-16 object-cover rounded-lg"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-[13px] font-medium text-slate-800 line-clamp-1">
+                  <div className="w-20 h-20 bg-(--neutral-50) border border-(--neutral-100) shrink-0 overflow-hidden rounded-[4px]">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-contain mix-blend-multiply"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0 py-0.5">
+                    <h3 className="text-[13px] font-bold text-black uppercase tracking-tight line-clamp-1">
                       {item.name}
                     </h3>
-                    <p className="text-[12px] text-slate-400 mt-0.5">
+                    <p className="text-[11px] text-(--neutral-500) font-medium mt-1">
                       {item.variant || 'Standard'}
                     </p>
-                    <div className="flex justify-between items-center mt-2">
-                      <div className="flex items-center border rounded-lg">
+                    <div className="flex justify-between items-center mt-3">
+                      <div className="flex items-center border border-black rounded-[4px] overflow-hidden">
                         <button
                           onClick={() => updateQty(item.productId, item.qty - 1)}
-                          className="w-7 h-7 flex items-center justify-center hover:bg-slate-50 rounded-l-lg transition-colors"
+                          className="w-8 h-8 flex items-center justify-center hover:bg-(--neutral-100) transition-colors border-r border-black"
                         >
-                          <Minus size={14} />
+                          <Minus size={12} />
                         </button>
-                        <span className="px-3 text-[13px] font-medium">
+                        <span className="px-4 text-[13px] font-bold">
                           {item.qty}
                         </span>
                         <button
                           onClick={() => updateQty(item.productId, item.qty + 1)}
                           disabled={item.qty >= item.stock}
-                          className="w-7 h-7 flex items-center justify-center hover:bg-slate-50 rounded-r-lg transition-colors disabled:opacity-50"
+                          className="w-8 h-8 flex items-center justify-center hover:bg-(--neutral-100) transition-colors disabled:opacity-50 border-l border-black"
                         >
-                          <Plus size={14} />
+                          <Plus size={12} />
                         </button>
                       </div>
-                      <span className="text-[14px] font-semibold text-slate-700">
+                      <span className="text-[14px] font-bold text-black tabular-nums">
                         {formatCurrency(item.price * item.qty)}
                       </span>
                     </div>
                   </div>
                   <button
                     onClick={() => removeItem(item.productId)}
-                    className="text-slate-300 hover:text-red-400 transition-colors"
+                    className="text-(--neutral-300) hover:text-black transition-colors"
                   >
-                    <Trash weight="regular" size={14} />
+                    <Trash weight="bold" size={16} />
                   </button>
                 </div>
               ))}
@@ -127,31 +129,32 @@ export const CartDrawer = () => {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="border-t border-slate-100 px-5 py-4 space-y-2">
-            <div className="flex justify-between text-[14px]">
-              <span className="text-slate-500">Subtotal</span>
-              <span className="font-medium">{formatCurrency(total())}</span>
-            </div>
-            <div className="flex justify-between text-[14px]">
-              <span className="text-slate-500">Shipping</span>
-              <span className="text-green-600">
-                {total() >= 50 ? 'Free' : 'Calculated'}
-              </span>
-            </div>
-            <div className="h-px bg-slate-100 my-2" />
-            <div className="flex justify-between text-[18px] font-bold font-display text-slate-900">
-              <span>Total</span>
-              <span>{formatCurrency(total())}</span>
+          <div className="border-t border-(--neutral-200) px-6 py-8 space-y-6 bg-white">
+            <div className="space-y-2">
+              <div className="flex justify-between text-[13px] uppercase tracking-widest font-bold">
+                <span className="text-(--neutral-500)">Subtotal</span>
+                <span className="text-black">{formatCurrency(total())}</span>
+              </div>
+              <div className="flex justify-between text-[13px] uppercase tracking-widest font-bold">
+                <span className="text-(--neutral-500)">Delivery</span>
+                <span className={total() >= 50 ? 'text-black' : 'text-(--neutral-400)'}>
+                  {total() >= 50 ? 'FREE' : 'STANDARD'}
+                </span>
+              </div>
+              <div className="h-px bg-(--neutral-100) my-4" />
+              <div className="flex justify-between text-[18px] font-bold text-black tracking-tighter">
+                <span>Total</span>
+                <span className="tabular-nums">{formatCurrency(total())}</span>
+              </div>
             </div>
             <button
               onClick={handleCheckout}
-              className="w-full h-11 bg-orange-500 text-white rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-orange-600 transition-colors"
+              className="w-full h-14 bg-black text-white text-[13px] font-bold uppercase tracking-widest hover:bg-black/90 transition-all active:scale-[0.99] rounded-[4px]"
             >
-              <ShoppingCartSimple weight="regular" size={18} />
-              Checkout
+              Checkout Now
             </button>
-            <p className="text-center text-[13px] text-slate-400 mt-2">
-              Continue shopping
+            <p className="text-center text-[11px] font-bold text-(--neutral-400) uppercase tracking-widest cursor-pointer hover:text-black transition-colors" onClick={closeCart}>
+              Back to Store
             </p>
           </div>
         )}

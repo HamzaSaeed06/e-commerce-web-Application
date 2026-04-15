@@ -3,7 +3,7 @@ import { useAuthStore } from '../store/authStore';
 import { useCartStore } from '../store/cartStore';
 import { syncCartToFirestore, loadCartFromFirestore } from '../services/cartService';
 import { trackCartAdd, trackCartRemove } from '../services/activityService';
-import type { Product } from '../types';
+import type { Product, CartItem } from '../types';
 import toast from 'react-hot-toast';
 
 const DEBOUNCE_DELAY = 1000;
@@ -46,36 +46,42 @@ export const useCart = () => {
     loadCart();
   }, [user?.uid]);
 
-  const addToCart = useCallback(async (product: Product, quantity = 1) => {
+  const addToCart = useCallback(async (
+    product: Product, 
+    quantity = 1, 
+    variantId?: string, 
+    attributes?: Record<string, string>
+  ) => {
     if (product.stock < quantity) {
       toast.error('Not enough stock available');
       return;
     }
 
-    const cartItem = {
+    const cartItem: CartItem = {
       productId: product.id,
+      variantId,
       name: product.name,
-      price: product.isFlashSale && product.flashSalePrice
-        ? product.flashSalePrice
-        : product.price,
+      price: product.price,
       image: product.images[0] || '',
       qty: quantity,
       stock: product.stock,
+      variant: variantId ? Object.entries(attributes || {}).map(([k, v]) => `${k}: ${v}`).join(', ') : undefined,
+      attributes,
     };
 
     addItem(cartItem);
     await trackCartAdd(user?.uid || null, product.id, quantity, cartItem.price);
-    toast.success(`${product.name} added to cart`);
+    toast.success(`${product.name}${variantId ? ` (${cartItem.variant})` : ''} added to cart`);
   }, [addItem, user]);
 
-  const removeFromCart = useCallback(async (productId: string) => {
-    removeItem(productId);
+  const removeFromCart = useCallback(async (productId: string, variantId?: string) => {
+    removeItem(productId, variantId);
     await trackCartRemove(user?.uid || null, productId);
     toast.success('Item removed from cart');
   }, [removeItem, user]);
 
-  const updateQuantity = useCallback((productId: string, quantity: number) => {
-    updateQty(productId, quantity);
+  const updateQuantity = useCallback((productId: string, quantity: number, variantId?: string) => {
+    updateQty(productId, quantity, variantId);
   }, [updateQty]);
 
   const getCartTotal = useCallback(() => {

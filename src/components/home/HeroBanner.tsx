@@ -50,7 +50,7 @@ export const HeroBanner = () => {
 
   return (
     <section
-      className="relative h-[480px] md:h-[480px] rounded-2xl overflow-hidden group"
+      className="relative h-[560px] md:h-[640px] overflow-hidden group"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -60,50 +60,50 @@ export const HeroBanner = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.8 }}
           className="absolute inset-0"
         >
           <img
             src={slides[currentSlide].image}
             alt={slides[currentSlide].title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
         </motion.div>
       </AnimatePresence>
 
       {/* Content */}
-      <div className="absolute inset-0 flex items-end">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <div className="absolute inset-0 flex items-center">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-              className="max-w-lg mb-12 ml-8"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="max-w-xl"
             >
-              <p className="text-[13px] text-white/70 uppercase tracking-widest font-medium mb-3">
-                New Collection
+              <p className="text-[12px] text-white/80 uppercase tracking-[0.3em] font-bold mb-4">
+                Exclusive Partnership
               </p>
-              <h1 className="text-[44px] font-display font-bold text-white leading-[1.1]">
-                {slides[currentSlide].title}
+              <h1 className="text-[48px] md:text-[64px] font-bold text-white leading-[1.05] tracking-tight">
+                {slides[currentSlide].title.toUpperCase()}
               </h1>
-              <p className="text-[15px] text-white/80 mt-2 leading-relaxed">
+              <p className="text-[16px] text-white/70 mt-4 leading-relaxed max-w-md font-medium">
                 {slides[currentSlide].subtitle}
               </p>
               <motion.div
-                className="mt-6"
-                whileHover={{ x: 4 }}
+                className="mt-8"
+                whileHover={{ x: 5 }}
                 transition={{ duration: 0.2 }}
               >
                 <Link
                   to={slides[currentSlide].link}
-                  className="inline-flex items-center gap-2 h-10 px-6 bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-[14px] font-semibold transition-colors"
+                  className="inline-flex items-center justify-center h-14 px-10 bg-white text-black text-[13px] font-bold uppercase tracking-[0.2em] hover:bg-black hover:text-white transition-all border border-white"
                 >
                   {slides[currentSlide].cta}
-                  <ArrowRight size={16} />
+                  <ArrowRight size={18} className="ml-3" />
                 </Link>
               </motion.div>
             </motion.div>
@@ -111,30 +111,30 @@ export const HeroBanner = () => {
         </div>
       </div>
 
-      {/* Navigation Arrows */}
+      {/* Navigation Arrows - Sharp & Minimalist */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center bg-white/20 backdrop-blur rounded-full text-white opacity-0 group-hover:opacity-100 transition-all"
+        className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center border border-white/30 backdrop-blur-sm text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-white hover:text-black"
       >
-        <ChevronLeft size={18} />
+        <ChevronLeft size={24} strokeWidth={1.5} />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center bg-white/20 backdrop-blur rounded-full text-white opacity-0 group-hover:opacity-100 transition-all"
+        className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center border border-white/30 backdrop-blur-sm text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-white hover:text-black"
       >
-        <ChevronRight size={18} />
+        <ChevronRight size={24} strokeWidth={1.5} />
       </button>
 
-      {/* Dots */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
+      {/* Progress Indicators - Sharp Lines */}
+      <div className="absolute bottom-10 left-6 sm:left-12 flex gap-3">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`h-2 rounded-full transition-all duration-300 ${
+            className={`h-[3px] transition-all duration-500 ${
               index === currentSlide
-                ? 'bg-white w-6'
-                : 'bg-white/40 w-2 hover:bg-white/80'
+                ? 'bg-white w-20'
+                : 'bg-white/30 w-8 hover:bg-white/60'
             }`}
           />
         ))}

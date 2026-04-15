@@ -55,15 +55,15 @@ export const SearchBar = () => {
               handleSearch(inputValue);
             }
           }}
-          className="w-64 pl-10 pr-4 py-2 bg-[var(--bg-secondary)] border border-[var(--border-default)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--brand-200)] focus:border-[var(--brand-500)] transition-all"
+          className="w-72 pl-10 pr-4 py-2 bg-(--neutral-50) border border-(--neutral-200) rounded-[4px] text-[13px] font-medium placeholder:text-(--neutral-400) focus:outline-none focus:border-black transition-all"
         />
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-black" />
         {inputValue && (
           <button
             onClick={() => setInputValue('')}
             className="absolute right-3 top-1/2 -translate-y-1/2"
           >
-            <X className="w-4 h-4 text-[var(--text-muted)] hover:text-[var(--text-secondary)]" />
+            <X className="w-3.5 h-3.5 text-black hover:scale-110 transition-transform" />
           </button>
         )}
       </div>
@@ -71,16 +71,16 @@ export const SearchBar = () => {
       {/* Mobile Search Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="md:hidden p-2 text-[var(--text-secondary)]"
+        className="md:hidden p-2 text-black hover:bg-(--neutral-50) rounded-[4px] transition-colors"
       >
         <Search className="w-5 h-5" />
       </button>
 
-      {/* Dropdown */}
+      {/* Dropdown - Sharp & Bold */}
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 md:w-96 mt-2 bg-white rounded-xl shadow-lg border border-[var(--border-default)] overflow-hidden z-50">
+        <div className="absolute top-full left-0 right-0 md:w-96 mt-2 bg-white rounded-[4px] shadow-2xl border border-(--neutral-200) overflow-hidden z-50">
           {/* Mobile Input */}
-          <div className="md:hidden p-4 border-b border-[var(--border-default)]">
+          <div className="md:hidden p-4 border-b border-(--neutral-200)">
             <div className="relative">
               <input
                 ref={inputRef}
@@ -93,20 +93,20 @@ export const SearchBar = () => {
                     handleSearch(inputValue);
                   }
                 }}
-                className="w-full pl-10 pr-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border-default)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--brand-200)]"
+                className="w-full pl-10 pr-4 py-3 bg-(--neutral-50) border border-black rounded-[4px] text-[13px] focus:outline-none"
               />
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--text-muted)]" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-black" />
             </div>
           </div>
 
-          <div className="max-h-80 overflow-y-auto">
+          <div className="max-h-[70vh] md:max-h-96 overflow-y-auto">
             {/* Recent Searches */}
             {recentSearches.length > 0 && (
-              <div className="p-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <Clock className="w-4 h-4 text-[var(--text-muted)]" />
-                  <span className="text-sm font-medium text-[var(--text-secondary)]">
-                    Recent Searches
+              <div className="p-5">
+                <div className="flex items-center gap-2 mb-4">
+                  <Clock className="w-3.5 h-3.5 text-(--neutral-500)" />
+                  <span className="text-[11px] font-bold text-black uppercase tracking-widest">
+                    Recent
                   </span>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -114,7 +114,7 @@ export const SearchBar = () => {
                     <button
                       key={search}
                       onClick={() => handleSearch(search)}
-                      className="px-3 py-1.5 bg-[var(--bg-secondary)] text-sm text-[var(--text-secondary)] rounded-full hover:bg-[var(--bg-tertiary)] transition-colors"
+                      className="px-4 py-2 border border-(--neutral-200) text-[12px] font-medium text-black hover:border-black rounded-[4px] transition-colors"
                     >
                       {search}
                     </button>
@@ -124,24 +124,24 @@ export const SearchBar = () => {
             )}
 
             {/* Trending Searches */}
-            <div className="p-4 border-t border-[var(--border-default)]">
-              <div className="flex items-center gap-2 mb-3">
-                <TrendingUp className="w-4 h-4 text-[var(--brand-500)]" />
-                <span className="text-sm font-medium text-[var(--text-secondary)]">
-                  Trending Now
+            <div className="p-5 border-t border-(--neutral-100)">
+              <div className="flex items-center gap-2 mb-4">
+                <TrendingUp className="w-3.5 h-3.5 text-black" />
+                <span className="text-[11px] font-bold text-black uppercase tracking-widest">
+                  Trending
                 </span>
               </div>
-              <div className="space-y-1">
+              <div className="space-y-0.5">
                 {trending.slice(0, 6).map((search, index) => (
                   <button
                     key={search}
                     onClick={() => handleSearch(search)}
-                    className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[var(--bg-secondary)] transition-colors text-left"
+                    className="w-full flex items-center gap-4 px-3 py-2.5 hover:bg-(--neutral-50) transition-colors text-left group"
                   >
-                    <span className="w-6 h-6 flex items-center justify-center bg-[var(--brand-50)] text-[var(--brand-600)] text-xs font-medium rounded">
-                      {index + 1}
+                    <span className="text-[11px] font-bold text-(--neutral-300) group-hover:text-black">
+                      0{index + 1}
                     </span>
-                    <span className="text-sm text-[var(--text-primary)]">{search}</span>
+                    <span className="text-[13px] font-bold text-black tracking-tight">{search}</span>
                   </button>
                 ))}
               </div>

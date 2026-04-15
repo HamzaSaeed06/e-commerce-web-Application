@@ -41,121 +41,92 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <motion.div 
-      className="group relative bg-white rounded-xl border border-slate-100 overflow-hidden hover:shadow-[0_4px_8px_rgba(15,23,42,0.06),0_12px_32px_rgba(15,23,42,0.10)] transition-all duration-200"
-      whileHover={{ y: -3 }}
+      className="group relative bg-white transition-all duration-300"
     >
       {/* Image Container */}
-      <Link to={`/products/${product.slug}`} className="block relative aspect-[4/3] overflow-hidden">
+      <Link 
+        to={`/products/${product.slug}`} 
+        className="block relative aspect-[4/5] overflow-hidden bg-(--neutral-50) rounded-[4px]"
+      >
         <img
           src={product.images[0]}
           alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[400ms] ease"
+          className="w-full h-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
         />
         
-        {/* Badges */}
-        <div className="absolute top-2 left-2 flex flex-col gap-1">
-          {isFlashSale && (
-            <span className="px-1.5 py-0.5 bg-orange-500 text-white text-[10px] font-semibold rounded-md flex items-center gap-1">
-              <Zap className="w-2.5 h-2.5" /> FLASH
-            </span>
-          )}
-          {isNew && !isFlashSale && (
-            <span className="px-1.5 py-0.5 bg-slate-900 text-white text-[10px] font-semibold rounded-md">
-              NEW
-            </span>
-          )}
-          {discount > 0 && !isFlashSale && (
-            <span className="px-1.5 py-0.5 bg-red-500 text-white text-[10px] font-semibold rounded-md">
-              -{discount}%
-            </span>
-          )}
-        </div>
-
-        {/* Wishlist Button */}
-        <motion.button
+        {/* Wishlist Button - Extra Minimal */}
+        <button
           onClick={(e) => {
             e.preventDefault();
             setIsWishlisted(!isWishlisted);
           }}
-          whileTap={{ scale: 0.85 }}
-          animate={{ scale: isWishlisted ? [1, 1.3, 1] : 1 }}
-          transition={{ duration: 0.25 }}
-          className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center bg-white rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-all hover:scale-110 active:scale-95"
         >
           <PhosphorHeart 
             weight={isWishlisted ? "fill" : "regular"} 
-            size={16} 
-            className={isWishlisted ? "text-red-500" : "text-slate-300"}
+            size={18} 
+            className={isWishlisted ? "text-red-500" : "text-black"}
           />
-        </motion.button>
-
-        {/* Quick View */}
-        <div className="absolute bottom-0 w-full opacity-0 group-hover:opacity-100 transition-opacity">
-          <div className="bg-white/90 backdrop-blur-sm py-2 text-[13px] font-medium text-center text-slate-700 flex items-center justify-center gap-1">
-            <Eye weight="regular" size={14} /> Quick View
-          </div>
-        </div>
+        </button>
       </Link>
 
-      {/* Content */}
-      <div className="p-3 space-y-1.5">
-        <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wider">
-          {product.category}
+      {/* Content - Editorial Hierarchy */}
+      <div className="pt-5 pb-4 px-1 space-y-1.5 text-left">
+        {/* Brand Name */}
+        <p className="text-[14px] font-extrabold text-black uppercase tracking-tight leading-none">
+          {product.brand || 'JOHN LEWIS ANYDAY'}
         </p>
-        <Link to={`/products/${product.slug}`}>
-          <h3 className="text-[14px] font-medium text-slate-800 line-clamp-2 leading-snug group-hover:text-orange-500 transition-colors">
+        
+        {/* Price */}
+        <div className="flex items-center gap-2">
+          <span className="text-[18px] font-extrabold text-black">
+            {formatCurrency(displayPrice)}
+          </span>
+          {comparePrice && (
+            <span className="text-[14px] text-(--neutral-400) line-through font-medium">
+              {formatCurrency(comparePrice)}
+            </span>
+          )}
+        </div>
+
+        {/* Product Name */}
+        <Link to={`/products/${product.slug}`} className="block">
+          <h3 className="text-[14px] text-(--neutral-500) font-normal line-clamp-1 leading-snug hover:text-black transition-colors">
             {product.name}
           </h3>
         </Link>
         
-        {/* Rating */}
-        <div className="flex items-center gap-0.5">
-          {[...Array(5)].map((_, i) => (
+        {/* Rating & Sold Count */}
+        <div className="flex items-center gap-2 pt-1">
+          <div className="flex items-center gap-1.5">
             <PhosphorStar
-              key={i}
-              weight={i < Math.floor(product.rating) ? "fill" : "regular"}
-              size={12}
-              className={i < Math.floor(product.rating) ? "text-orange-400" : "text-slate-200"}
+              weight="fill"
+              size={18}
+              className="text-[#F59E0B]"
             />
-          ))}
-          <span className="text-[12px] text-slate-400 ml-1">({product.reviewCount})</span>
-        </div>
-
-        {/* Price */}
-        <div className="flex items-center gap-2">
-          <span className="text-[17px] font-bold text-slate-900">
-            {formatCurrency(displayPrice)}
+            <span className="text-[14px] font-extrabold text-black">
+              {product.rating.toFixed(1)}
+            </span>
+          </div>
+          
+          <span className="text-(--neutral-300)">•</span>
+          
+          <span className="text-[14px] text-(--neutral-500) font-medium">
+            {product.soldCount || '620'} Sold
           </span>
-          {comparePrice && (
-            <span className="text-[13px] text-slate-400 line-through">
-              {formatCurrency(comparePrice)}
-            </span>
-          )}
-          {discount > 0 && !isFlashSale && (
-            <span className="text-[11px] text-green-600 font-semibold">
-              {discount}% off
-            </span>
-          )}
         </div>
 
-        {/* Add to Cart Button */}
-        <motion.button
-          onClick={handleAddToCart}
-          disabled={product.stock === 0 || isLoading}
-          className="w-full h-8 rounded-lg text-[13px] font-medium bg-orange-500 hover:bg-orange-600 text-white flex items-center justify-center gap-1.5 disabled:bg-slate-300 disabled:cursor-not-allowed transition-colors"
-          whileTap={{ scale: 0.98 }}
-        >
-          {isLoading ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
-          ) : isSuccess ? (
-            <CheckCircle className="w-4 h-4 text-green-500" />
-          ) : (
-            <>
-              <ShoppingBag size={14} /> Add to cart
-            </>
-          )}
-        </motion.button>
+        {/* Quick Add - High Contrast */}
+        <div className="pt-3 opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">
+          <button
+            onClick={handleAddToCart}
+            disabled={product.stock === 0 || isLoading}
+            className="w-full h-10 bg-black text-white text-[12px] font-extrabold transition-all hover:bg-black/90 active:scale-[0.98] rounded-[4px] flex items-center justify-center gap-2"
+          >
+            {isLoading ? <Loader2 size={14} className="animate-spin" /> : 'ADD TO BAG'}
+          </button>
+        </div>
       </div>
     </motion.div>
   );

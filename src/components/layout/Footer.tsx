@@ -39,19 +39,19 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[var(--neutral-900)] text-white">
-      {/* Features */}
-      <div className="border-b border-[var(--neutral-700)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+    <footer className="bg-black text-white">
+      {/* Features - Monochrome Minimalist */}
+      <div className="border-b border-(--neutral-800)">
+        <div className="max-w-7xl mx-auto px-6 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             {features.map((feature) => (
-              <div key={feature.title} className="flex items-center gap-3">
-                <div className="p-2 bg-[var(--brand-500)]/20 rounded-lg">
-                  <feature.icon className="w-5 h-5 text-[var(--brand-400)]" />
+              <div key={feature.title} className="flex flex-col gap-4 text-center md:text-left">
+                <div className="flex justify-center md:justify-start">
+                  <feature.icon className="w-6 h-6 text-white" strokeWidth={1.5} />
                 </div>
                 <div>
-                  <p className="font-medium text-sm">{feature.title}</p>
-                  <p className="text-xs text-[var(--neutral-400)]">{feature.desc}</p>
+                  <p className="font-bold text-[13px] uppercase tracking-widest leading-none mb-1">{feature.title}</p>
+                  <p className="text-[12px] text-(--neutral-400) font-medium">{feature.desc}</p>
                 </div>
               </div>
             ))}
@@ -60,25 +60,30 @@ export const Footer = () => {
       </div>
 
       {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12">
           {/* Brand */}
-          <div className="col-span-2 md:col-span-4 lg:col-span-1">
-            <Link to="/" className="text-2xl font-display font-bold text-[var(--brand-500)]">
-              LuxeMarket
+          <div className="col-span-2 md:col-span-4 lg:col-span-1 space-y-6">
+            <Link to="/" className="flex flex-col items-start leading-none group">
+              <span className="text-xl font-bold text-white uppercase tracking-[0.2em]">
+                ZEST
+              </span>
+              <span className="text-[11px] font-medium text-(--neutral-400) uppercase tracking-[0.3em] mt-1 group-hover:text-white transition-colors">
+                & PARTNERS
+              </span>
             </Link>
-            <p className="mt-4 text-sm text-[var(--neutral-400)]">
-              Premium e-commerce experience with curated products for discerning customers.
+            <p className="text-[13px] text-(--neutral-400) leading-relaxed">
+              Experience editorial excellence in every product. Curated for the modern lifestyle.
             </p>
-            <div className="mt-6 flex gap-3">
+            <div className="flex gap-4 pt-2">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
-                  className="p-2 bg-[var(--neutral-800)] rounded-lg hover:bg-[var(--brand-500)] transition-colors"
+                  className="text-(--neutral-400) hover:text-white transition-colors"
                   aria-label={social.label}
                 >
-                  <social.icon className="w-4 h-4" />
+                  <social.icon className="w-5 h-5" />
                 </a>
               ))}
             </div>
@@ -86,13 +91,13 @@ export const Footer = () => {
 
           {/* Links */}
           <div>
-            <h4 className="font-display font-semibold mb-4">Shop</h4>
-            <ul className="space-y-2">
+            <h4 className="text-[13px] font-bold uppercase tracking-widest mb-6">Shop</h4>
+            <ul className="space-y-3">
               {footerLinks.shop.map((link) => (
                 <li key={link.to}>
                   <Link
                     to={link.to}
-                    className="text-sm text-[var(--neutral-400)] hover:text-white transition-colors"
+                    className="text-[13px] text-(--neutral-400) hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -102,13 +107,13 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-display font-semibold mb-4">Support</h4>
-            <ul className="space-y-2">
+            <h4 className="text-[13px] font-bold uppercase tracking-widest mb-6">Support</h4>
+            <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.to}>
                   <Link
                     to={link.to}
-                    className="text-sm text-[var(--neutral-400)] hover:text-white transition-colors"
+                    className="text-[13px] text-(--neutral-400) hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -118,13 +123,13 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-display font-semibold mb-4">Company</h4>
-            <ul className="space-y-2">
+            <h4 className="text-[13px] font-bold uppercase tracking-widest mb-6">Company</h4>
+            <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.to}>
                   <Link
                     to={link.to}
-                    className="text-sm text-[var(--neutral-400)] hover:text-white transition-colors"
+                    className="text-[13px] text-(--neutral-400) hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -135,19 +140,19 @@ export const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-display font-semibold mb-4">Contact</h4>
-            <ul className="space-y-3">
-              <li className="flex items-center gap-2 text-sm text-[var(--neutral-400)]">
+            <h4 className="text-[13px] font-bold uppercase tracking-widest mb-6">Contact</h4>
+            <ul className="space-y-4">
+              <li className="flex items-center gap-3 text-[13px] text-(--neutral-400)">
                 <Mail className="w-4 h-4" />
-                <span>support@luxemarket.com</span>
+                <span>concierge@zestpartners.com</span>
               </li>
-              <li className="flex items-center gap-2 text-sm text-[var(--neutral-400)]">
+              <li className="flex items-center gap-3 text-[13px] text-(--neutral-400)">
                 <Phone className="w-4 h-4" />
-                <span>+1 (555) 123-4567</span>
+                <span>+1 800 ZEST PARTNERS</span>
               </li>
-              <li className="flex items-start gap-2 text-sm text-[var(--neutral-400)]">
+              <li className="flex items-start gap-3 text-[13px] text-(--neutral-400)">
                 <MapPin className="w-4 h-4 mt-0.5" />
-                <span>123 Commerce St, NYC</span>
+                <span>Flagship: 123 Regent St, London</span>
               </li>
             </ul>
           </div>
@@ -155,18 +160,18 @@ export const Footer = () => {
       </div>
 
       {/* Bottom */}
-      <div className="border-t border-[var(--neutral-700)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-[var(--neutral-400)]">
-              &copy; {new Date().getFullYear()} LuxeMarket. All rights reserved.
+      <div className="border-t border-(--neutral-800)">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <p className="text-[11px] font-bold text-(--neutral-500) uppercase tracking-widest">
+              &copy; {new Date().getFullYear()} ZEST & PARTNERS. ALL RIGHTS RESERVED.
             </p>
-            <div className="flex gap-6 text-sm text-[var(--neutral-400)]">
+            <div className="flex gap-8 text-[11px] font-bold text-(--neutral-500) uppercase tracking-widest">
               <Link to="/privacy" className="hover:text-white transition-colors">
-                Privacy Policy
+                Privacy
               </Link>
               <Link to="/terms" className="hover:text-white transition-colors">
-                Terms of Service
+                Terms
               </Link>
             </div>
           </div>

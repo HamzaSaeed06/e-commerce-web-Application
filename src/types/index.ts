@@ -16,6 +16,23 @@ export interface User {
   fcmToken?: string;
 }
 
+export interface ProductAttribute {
+  name: string;
+  values: string[];
+}
+
+export interface ProductVariant {
+  id: string;
+  sku: string;
+  attributes: Record<string, string>;
+  price: number;
+  comparePrice?: number;
+  images: string[];
+  stock: number;
+  lowStockThreshold: number;
+  isActive: boolean;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -42,6 +59,9 @@ export interface Product {
   bundleIds: string[];
   weight?: number;
   dimensions?: { l: number; w: number; h: number };
+  hasVariants: boolean;
+  attributes?: ProductAttribute[];
+  variants?: ProductVariant[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -59,12 +79,14 @@ export interface Category {
 
 export interface CartItem {
   productId: string;
+  variantId?: string;
   name: string;
   price: number;
   image: string;
   qty: number;
   stock: number;
   variant?: string;
+  attributes?: Record<string, string>;
 }
 
 export interface Order {

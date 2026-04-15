@@ -6,8 +6,8 @@ interface CartStore {
   items: CartItem[];
   isOpen: boolean;
   addItem: (item: CartItem) => void;
-  removeItem: (productId: string) => void;
-  updateQty: (productId: string, qty: number) => void;
+  removeItem: (productId: string, variantId?: string) => void;
+  updateQty: (productId: string, qty: number, variantId?: string) => void;
   clearCart: () => void;
   openCart: () => void;
   closeCart: () => void;
@@ -21,17 +21,38 @@ export const useCartStore = create<CartStore>()(
       items: [],
       isOpen: false,
       addItem: (item) => {
-        const existing = get().items.find(i => i.productId === item.productId);
+        const existing = get().items.find(i => 
+          i.productId === item.productId && i.variantId === item.variantId
+        );
         if (existing) {
-          set({ items: get().items.map(i => i.productId === item.productId ? { ...i, qty: Math.min(i.qty + item.qty, i.stock) } : i) });
+          set({ 
+            items: get().items.map(i => 
+              i.productId === item.productId && i.variantId === item.variantId
+                ? { ...i, qty: Math.min(i.qty + item.qty, i.stock) } 
+                : i
+            ) 
+          });
         } else {
           set({ items: [...get().items, item], isOpen: true });
         }
       },
-      removeItem: (productId) => set({ items: get().items.filter(i => i.productId !== productId) }),
-      updateQty: (productId, qty) => {
-        if (qty <= 0) { get().removeItem(productId); return; }
-        set({ items: get().items.map(i => i.productId === productId ? { ...i, qty: Math.min(qty, i.stock) } : i) });
+      removeItem: (productId, variantId?: string) => set({ 
+        items: get().items.filter(i => 
+          !(i.productId === productId && (variantId === undefined || i.variantId === variantId))
+        ) 
+      }),
+      updateQty: (productId, qty, variantId?: string) => {
+        if (qty <= 0) { 
+          get().removeItem(productId, variantId); 
+          return; 
+        }
+        set({ 
+          items: get().items.map(i => 
+            i.productId === productId && (variantId === undefined || i.variantId === variantId)
+              ? { ...i, qty: Math.min(qty, i.stock) } 
+              : i
+          ) 
+        });
       },
       clearCart: () => set({ items: [] }),
       openCart: () => set({ isOpen: true }),
