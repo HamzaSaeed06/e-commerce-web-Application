@@ -36,6 +36,7 @@ export interface ProductVariant {
 export interface Product {
   id: string;
   name: string;
+  brand?: string;
   slug: string;
   description: string;
   price: number;
@@ -48,6 +49,7 @@ export interface Product {
   stock: number;
   lowStockThreshold: number;
   sold: number;
+  soldCount?: number;
   views: number;
   rating: number;
   reviewCount: number;
@@ -136,7 +138,7 @@ export interface Review {
   productId: string;
   userId: string;
   userName: string;
-  userPhoto: string;
+  userImage: string;
   rating: number;
   title: string;
   body: string;

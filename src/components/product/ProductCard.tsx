@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ShoppingBag, Zap, Loader2, CheckCircle } from 'lucide-react';
-import { Heart as PhosphorHeart, Eye, Star as PhosphorStar } from 'phosphor-react';
+import { Loader2 } from 'lucide-react';
+import { Heart as PhosphorHeart, Star as PhosphorStar } from 'phosphor-react';
 import { useCart } from '../../hooks/useCart';
 import { formatCurrency } from '../../utils/formatters';
 import type { Product } from '../../types';
@@ -14,16 +14,8 @@ interface ProductCardProps {
 export const ProductCard = ({ product }: ProductCardProps) => {
   const { addToCart } = useCart();
   const [isLoading, setIsLoading] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
-  
-  const isNew = new Date(product.createdAt).getTime() > Date.now() - 7 * 24 * 60 * 60 * 1000;
   const isFlashSale = product.isFlashSale && product.flashSalePrice;
-  const discount = isFlashSale 
-    ? Math.round(((product.price - product.flashSalePrice!) / product.price) * 100)
-    : product.comparePrice 
-      ? Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100)
-      : 0;
 
   const displayPrice = isFlashSale ? product.flashSalePrice! : product.price;
   const comparePrice = isFlashSale ? product.price : product.comparePrice;
@@ -35,8 +27,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     setIsLoading(true);
     await addToCart(product);
     setIsLoading(false);
-    setIsSuccess(true);
-    setTimeout(() => setIsSuccess(false), 800);
   };
 
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronDown, ChevronUp, Check, Star } from 'lucide-react';
+import { ChevronUp, Check, Star } from 'lucide-react';
 import type { ReviewFiltersState } from '../../../types/review';
 
 interface ReviewFiltersProps {

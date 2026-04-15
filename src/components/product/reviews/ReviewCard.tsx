@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Star, ThumbsUp, ThumbsDown, MoreHorizontal } from 'lucide-react';
+import { Star, ThumbsUp, ThumbsDown } from 'lucide-react';
 import type { Review } from '../../../types/review';
 
 interface ReviewCardProps {
@@ -58,9 +58,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         {/* Footer Row - User & Actions */}
         <div className="flex items-center justify-between pt-6">
           <div className="flex items-center gap-3">
-            {review.userPhoto ? (
+            {review.userImage ? (
               <img 
-                src={review.userPhoto} 
+                src={review.userImage} 
                 alt={review.userName} 
                 className="w-8 h-8 rounded-full object-cover border border-(--neutral-100)"
               />
@@ -83,7 +83,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
                   : 'border-(--neutral-200) text-black hover:bg-(--neutral-50)'
               }`}
             >
-              <ThumbsUp size={16} weight={voted === 'helpful' ? 'fill' : 'regular'} />
+              <ThumbsUp size={16} />
               <span>{helpfulCount}</span>
             </button>
             <button
@@ -94,7 +94,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
                   : 'border-(--neutral-200) text-black hover:bg-(--neutral-50)'
               }`}
             >
-              <ThumbsDown size={16} weight={voted === 'unhelpful' ? 'fill' : 'regular'} />
+              <ThumbsDown size={16} />
             </button>
           </div>
         </div>

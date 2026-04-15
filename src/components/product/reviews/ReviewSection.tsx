@@ -3,8 +3,8 @@ import { Filter, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import ReviewSummary from './ReviewSummary';
 import ReviewFilters from './ReviewFilters';
 import ReviewCard from './ReviewCard';
-import { MOCK_REVIEWS, MOCK_SUMMARY, AVAILABLE_TOPICS } from '../../../utils/mockReviews';
-import type { Review, ReviewFiltersState, SortOption, RatingDistribution, ReviewSummaryData } from '../../../types/review';
+import { MOCK_REVIEWS, AVAILABLE_TOPICS } from '../../../utils/mockReviews';
+import type { ReviewFiltersState, SortOption, RatingDistribution, ReviewSummaryData } from '../../../types/review';
 
 interface ReviewSectionProps {
   productId: string;

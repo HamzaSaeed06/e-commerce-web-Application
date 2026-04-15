@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Heart, Share2, Truck, Shield, RotateCcw, Minus, Plus, Star, ChevronLeft, ChevronRight, Package, Check, Clock, AlertCircle } from 'lucide-react';
+import { Heart, Share2, Truck, RotateCcw, Minus, Plus, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useProductBySlug, useRelatedProducts, useTrendingProducts } from '../hooks/useProducts';
 import { useCart } from '../hooks/useCart';
 import { useAuthStore } from '../store/authStore';
@@ -83,13 +83,6 @@ const ProductDetail = () => {
     return Array.from(values);
   };
 
-  // Get color value for swatch display
-  const getColorValue = (variant: ProductVariant) => {
-    const colorAttr = Object.entries(variant.attributes).find(([key]) => 
-      key.toLowerCase() === 'color'
-    );
-    return colorAttr?.[1] || '';
-  };
 
   if (loading) {
     return (
